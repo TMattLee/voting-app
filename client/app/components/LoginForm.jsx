@@ -34,13 +34,16 @@ class LoginForm extends Component{
   }
   
   render(){
-    const { redirect } = this.props;
+    return ( 
+      <Redirect to={ '/voting-app/' } />
+    );
+    /*const { redirect } = this.props;
     if ( redirect ) {
       const endpoint = '/voting-app/dashboard/';
       return ( 
         <Redirect to={ endpoint } />
       );
-    }
+    }*/
     return (
       <div>
         <form action="/voting-app/login" encType="x-www-form-urlencoded" onSubmit={ this.handleSubmit } >

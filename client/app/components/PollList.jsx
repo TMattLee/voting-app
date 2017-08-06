@@ -21,13 +21,20 @@ const PollList = ( props ) =>{
       </div>;
     });
     return(
-      <div> { polls } </div>
+      <div style={ styles.list} > { polls } </div>
     );
   }
   else{
     return <div>
       No polls to show yet.
     </div>
+  }
+}
+
+const styles ={
+  list:{
+    height:           '95%',
+    overflowY:        'scroll'
   }
 }
 

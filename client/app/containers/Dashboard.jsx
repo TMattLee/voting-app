@@ -86,7 +86,7 @@ class Dashboard extends Component {
       );
     }
     if( this.props.isAuthorized === false && this.props.done === true ){
-      const endpoint = '/voting-app/login/' ; 
+      const endpoint = '/voting-app' ; 
       return (
         <Redirect to={ endpoint } />
       );
@@ -114,9 +114,7 @@ class Dashboard extends Component {
           
           <EditPoll hideEditModal={ this.hideEditModal }
              showEditModal={ this.showEditModal }
-             poll={ this.props.polls.filter( ( item ) => {
-                return item._id === this.props.currentPoll 
-              }) } />
+             />
         
         </Modal>
         
@@ -129,9 +127,7 @@ class Dashboard extends Component {
           
           <DeletePoll hideDeleteModal={ this.hideDeleteModal }
              showDeleteModal={ this.showDeleteModal }
-             poll={ this.props.polls.filter( ( item ) => {
-                return item._id === this.props.currentPoll 
-              }) } />
+             />
         
         </Modal>
         
@@ -189,6 +185,7 @@ const styles ={
     }
   },
   button:{
+    textAlign:        'center',
     position:         'relative',
     width:            '120px',
     height:           '20px',

@@ -12,9 +12,8 @@ const EditablePollList = ( props ) =>{
     props.setCurrentPoll( _id )
   }
   
-  if(props.polls.length > 0){
+  if( props.polls && props.polls.length > 0){
     // filter polls by user id
-    console.log('editable pollist props',props)
     let editablePolls = props.polls.filter( ( item ) => {
       return item.uid === props.userId
     });
@@ -35,7 +34,7 @@ const EditablePollList = ( props ) =>{
     });
   
     return(
-      <div className="poll-list" > 
+      <div className="poll-list"  style={ styles.list} > 
         { polls }
       </div>
     );
@@ -48,6 +47,10 @@ const EditablePollList = ( props ) =>{
 }
 
 const styles ={
+  list:{
+    height:           '95%',
+    overflowY:        'scroll'
+  },
   pollListItem:{
     width:            '100%',
     display:          'inline-block',

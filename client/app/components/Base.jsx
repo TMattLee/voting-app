@@ -6,7 +6,6 @@ import Footer from './Footer.jsx';
 import { connect } from 'react-redux';
 
 const Base = ( props ) => {
-  console.log('props ', props );
   return(
     <div>
       <Header location={ props.history.location } />
@@ -23,8 +22,8 @@ const styles = {
     display:          'flex',
     flexDirection:    'column',
     width:            '800px',
-    minHeight:        '600px',
-    margin:           '70px auto 10px auto',
+    height:           '650px',
+    margin:           '70px auto 0px auto',
     backgroundColor:  '#eee',
     borderRadius:     '2px',
     boxShadow:        '0px 0px 2px',

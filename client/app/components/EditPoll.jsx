@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import getPolls from '../lib/getPolls.js';
 
 class EditPoll extends Component {
-  
   handleSubmit( event ){
     event.preventDefault();
     const title = event.target[0].value;
-    const options = event.target[1].value.split(' ');
+    const options = event.target[1].value.split('\n');
     const { currentPoll, polls } = this.props;
     editPoll( this.props, title, currentPoll, options )
     console.log('this', this)
@@ -24,13 +23,12 @@ class EditPoll extends Component {
     const poll = pollItems[0];
     poll.options.map( ( value, key ) => {
       if( key !== poll.options.length - 1 ){
-        optionString += value.itemName + ' ';
+        optionString += value.itemName + '\n';
       } 
       else{
         optionString += value.itemName;
       }
     })
-    //optionString.slice( 0, optionString.length - 1 )
     return(
       <div style={ styles.container } >
         <div style={ styles.modalTitle } >EditPoll</div>
@@ -41,10 +39,11 @@ class EditPoll extends Component {
             placeholder="Poll Title" 
             style={ styles.modalText }
             required /> <br />
-          <input type="text" 
+          <textarea
             name="options" 
+            rows="10"
             defaultValue={ optionString }
-            placeholder="Poll choices ( space separated )" 
+            placeholder="Poll choices ( line separated )" 
             style={ styles.modalText }
             required />  <br />
           <button type="submit"> Edit Poll </button>

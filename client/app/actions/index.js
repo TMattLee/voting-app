@@ -110,17 +110,27 @@ export const signUp = ( uid, pw ) => {
   }
 }
 
-export const signOut = () => ({
-  type: SIGN_OUT,
-})
+export const signOut = () => {
+  return ( dispatch ) => {
+    axios.get('/voting-app/signout')
+      .then( ( response ) => {
+        dispatch({
+          type: SIGN_OUT,
+        })
+      })
+      .catch( ( error ) => {
+        console.log(error);
+      })
+    
+  }
+  
+}
 
 export const checkLoggedIn = ( authCookie ) => {
   return ( dispatch ) => {
-    console.log('attempt auth with', authCookie)
     axios.defaults.headers.common['Authorization'] = 'JWT ' + authCookie;
     axios.get('/voting-app/auth')
       .then( ( response ) => {
-        console.log('response', response )
         if( response.data.auth !== "AUTHORIZED"){
           dispatch({
             type: CHECK_LOGGED_IN,
@@ -163,14 +173,13 @@ export const getPollsFromDatabase = () => {
     axios.get('/voting-app/polls')
     .then( ( response ) => {
       const pollData = response.data;
-      console.log('dfdfdfdfd',pollData)
       dispatch({
         type: GET_POLLS,
         polls: pollData
       })
     })
     .catch( ( error ) => {
-      console.log('error getting polls d', error );
+      console.log( error );
     });
   }
 }
@@ -220,7 +229,6 @@ export const editExistingPoll = ( title, pollId, options, authCookie ) => {
           axios.get('/voting-app/polls')
             .then( ( response ) => {
               const pollData = response.data;
-              console.log('got polls')
               dispatch({
                 type: GET_POLLS,
                 polls: pollData
@@ -242,19 +250,16 @@ export const editExistingPoll = ( title, pollId, options, authCookie ) => {
 
 export const deleteExistingPoll = ( pollId, authCookie ) => {
   return ( dispatch ) => {
-    console.log('pollid ', pollId)
     axios.defaults.headers.common['Authorization'] = 'JWT ' + authCookie;
     axios.post( '/voting-app/deletepoll', 
       {
         pollId: pollId
       })
       .then( ( response ) => {
-        console.log('deleeted polls')
         if ( response.data === "SUCCESS" ){
           axios.get('/voting-app/polls')
             .then( ( response ) => {
               const pollData = response.data;
-              console.log('polldata ', pollData)
               dispatch({
                 type: GET_POLLS,
                 polls: pollData
@@ -281,10 +286,8 @@ export const setCurrentPoll = ( pollId ) => ({
 
 export const addVote = ( uid, _id, itemId ) =>{
   return ( dispatch ) => {
-    console.log('postit!1')
     checkVotePromise( uid, _id)
     .then( (resolve) => {
-      console.log('resolve', resolve)
       if( resolve !== "VOTED_ALREADY"){
         axios.post( '/voting-app/voteonpoll', 
           {
@@ -292,12 +295,10 @@ export const addVote = ( uid, _id, itemId ) =>{
             itemId: itemId,
           })
           .then( ( response ) => {
-            console.log( 'testing', response.data )
             if (response.data === "SUCCESS"){
                 axios.get('/voting-app/polls')
                   .then( ( response ) => {
                     const pollData = response.data;
-                    console.log('got polls')
                     dispatch({
                       type: GET_POLLS,
                       polls: pollData
@@ -327,7 +328,6 @@ export const addVote = ( uid, _id, itemId ) =>{
 
 const checkVotePromise = ( uid, pollId ) => {
   return new Promise( ( resolve, reject ) => {
-    console.log('postit!')
     axios.get( '/voting-app/checkvoted', 
       {
         params:{
@@ -336,7 +336,6 @@ const checkVotePromise = ( uid, pollId ) => {
         }
       })
       .then( ( response ) => {
-        console.log('got repsonse', response)
         if ( response.data === "HAS_NOT_VOTED" ){
             axios.post('/voting-app/setvoted',
               {
@@ -344,7 +343,6 @@ const checkVotePromise = ( uid, pollId ) => {
                 pollId: pollId
               })
               .then( ( response ) => {
-                console.log( response );
                 resolve("HAS_NOT_VOTED")
               })
               .catch( ( error ) => {
@@ -353,7 +351,6 @@ const checkVotePromise = ( uid, pollId ) => {
               });
           }
           else{
-            console.log('voted')
             resolve("VOTED_ALREADY")
           }
       })

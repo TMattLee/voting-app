@@ -7,7 +7,7 @@ class CreatePoll extends Component {
   handleSubmit( event ){
     event.preventDefault();
     const title = event.target[0].value;
-    const options = event.target[1].value.split(' ');
+    const options = event.target[1].value.split('\n');
     addPoll( this.props, title, options );
     this.props.hideModal();
     getPolls( this.props );
@@ -22,9 +22,10 @@ class CreatePoll extends Component {
             placeholder="Poll Title" 
             style={ styles.modalText }
             required /> <br />
-          <input type="text" 
+          <textarea
             name="options" 
-            placeholder="Poll choices ( space separated )" 
+            rows="10"
+            placeholder="Poll choices ( line separated )" 
             style={ styles.modalText }
             required />  <br />
           <button type="submit"> Create Poll </button>

@@ -18,7 +18,7 @@ const EditablePollItem = ( props ) => {
 
 const styles = {
   pollBorderHover:{
-    margin:           '5px 0px',
+    margin:           '5px',
     cursor:           'pointer',
     padding:          '10px 5px',
     borderRadius:     '2px',

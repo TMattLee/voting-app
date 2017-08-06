@@ -43,7 +43,6 @@ class HomePage extends Component{
   setCurrentPoll( _id ){
     setPoll( this.props, _id );
     this.showModal();
-    console.log('polls ', this.props.polls)
   }
   
   render(){
@@ -84,7 +83,7 @@ const styles ={
     display:          'flex',
     flexDirection:    'column',
     width:            '600px',
-    margin:           '10px auto',
+    margin:           '10px auto 0px auto',
     backgroundColor:  '#eee',
     borderRadius:     '2px',
   },

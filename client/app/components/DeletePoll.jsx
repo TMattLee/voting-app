@@ -41,6 +41,7 @@ const styles = {
     margin:           '30px'
   },
   button:{
+    textAlign:        'center',
     position:         'relative',
     width:            '120px',
     height:           '20px',

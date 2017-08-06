@@ -11,8 +11,6 @@ const PollDisplay = ( props ) => {
     return Math.floor(Math.random()*256);
   }
   
-  console.log('modal props ', props)
-  
   const populateList = ( listOptions ) => {
     return listOptions.map( ( val, key ) => {
       return <option value= { key } key={ key } > { val.itemName } </option>
@@ -21,11 +19,9 @@ const PollDisplay = ( props ) => {
   
   const vote = ( event  ) => {
     event.preventDefault();
-    console.log(event.target[ 0 ].value)
     event.stopPropagation();
     const element = event.target[ 0 ].value;
     const _itemId = poll.options[ element ]._id;
-    console.log('voteactions are ', _id,  _itemId, poll, props );
     let uid = null;
     if( props.isAuthorized ) uid = props.username;
     doVoteAction( props, uid, _id, _itemId );
